@@ -2,42 +2,46 @@ name: Java CI with Maven and Yarn
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
   pull_request:
-    branches:
-      - main
+    branches: [main]
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
+    - name: Checkout repository
+      uses: actions/checkout@v2
 
-      - name: Set up JDK 22
-        uses: actions/setup-java@v2
-        with:
-          distribution: 'temurin'
-          java-version: '22.0.1'
+    - name: Set up JDK 22
+      uses: actions/setup-java@v2
+      with:
+        distribution: 'temurin' # This specifies the JDK distribution
+        java-version: '22'
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '16'
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '16'
 
-      - name: Install Yarn
-        run: npm install --global yarn
+    - name: Install Yarn
+      run: npm install -g yarn
 
-      - name: Install dependencies
-        run: cd star-wars && yarn install
+    - name: Install dependencies
+      run: |
+        cd star-wars
+        yarn install
 
-      - name: Build application
-        run: cd star-wars && yarn build
+    - name: Build application
+      run: |
+        cd star-wars
+        yarn build
 
-      - name: Start application
-        run: cd star-wars && yarn start &
+    - name: Start application
+      run: |
+        cd star-wars
+        yarn start &
 
-      - name: Run tests
-        run: mvn test
+    - name: Run tests
+      run: mvn test
