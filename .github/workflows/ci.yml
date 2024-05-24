@@ -20,7 +20,7 @@ jobs:
       uses: actions/setup-java@v2
       with:
         java-version: '22'
-        distribution: 'temurin' 
+        distribution: 'temurin'
 
     - name: Set up Node.js
       uses: actions/setup-node@v2
@@ -31,13 +31,13 @@ jobs:
       run: npm install -g yarn
 
     - name: Install dependencies
-      run: yarn install
+      run: cd app && yarn install
 
     - name: Build application
-      run: yarn build
+      run: cd app && yarn build
 
     - name: Start application
-      run: yarn start &
-      
+      run: cd app && yarn start &
+
     - name: Run tests
       run: mvn test
